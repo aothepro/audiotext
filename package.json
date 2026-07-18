@@ -10,7 +10,7 @@
     "dev": "node server.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": "24.x"
   },
   "dependencies": {
     "@huggingface/transformers": "^3.4.0",
