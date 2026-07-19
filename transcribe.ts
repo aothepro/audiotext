@@ -1,14 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
 import { transcribeFile } from './lib/transcriber.js';
 
-async function main() {
+async function main(): Promise<void> {
   const inputPath = process.argv[2];
 
   if (!inputPath) {
-    console.error('Usage: node transcribe.js <path-to-audio.oga>');
-    console.error('Example: node transcribe.js voice_message.oga');
+    console.error('Usage: node dist/transcribe.js <path-to-audio.oga>');
+    console.error('Example: npm run transcribe -- voice_message.oga');
     process.exit(1);
   }
 
@@ -28,9 +28,10 @@ async function main() {
     fs.writeFileSync(outPath, text + os.EOL, 'utf8');
     console.log(`Saved to ${outPath}`);
   } catch (err) {
-    console.error('Error:', err.message);
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('Error:', message);
     process.exit(1);
   }
 }
 
-main();
+void main();
